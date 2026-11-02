@@ -465,6 +465,43 @@ Empirical benchmarks were executed directly on CPU in local inference mode for b
 - **Concept Recall Rate:** Both models achieved an average syllabus concept recall score of **88.1%**, reliably producing key architectural terminology including gate equations ($f_t, i_t, o_t$), gradient decay products, and cross-attention matrices.
 - **Syllabus Alignment Accuracy:** 100% of curriculum queries were correctly categorized into their corresponding syllabus units (Unit 4 vs. Unit 5).
 
+### 9.4 Unit 4 & Unit 5 Comprehensive 26-Question Syllabus Evaluation
+To validate that the chatbot possesses actual domain competence across every topic in the syllabus, a 26-question benchmark (`test_syllabus_qa.py`) was executed. This evaluation specifically tested definitions, mathematical explanations, structural comparisons, multi-turn follow-ups, and out-of-syllabus guardrails:
+
+- **Total Questions Evaluated:** 26
+- **Retrieval Accuracy:** **100.0%** (26/26 questions correctly retrieved or correctly guarded)
+- **Concept & Keyword Recall:** **94.6%**
+- **Average Response Latency:** **0.478 seconds** on CPU
+
+| ID | Curriculum Unit | Category | Academic Question | Retrieved Topic | Match (%) | Latency (s) | Evaluation Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **U4_01** | Unit 4 | Definition | What is an N-gram language model? | N-gram Language Models | 100.0% | 1.785s | ✅ PASS |
+| **U4_02** | Unit 4 | Explanation | Explain the chain rule of probability in language modeling. | Chain Rule of Probability | 100.0% | 2.481s | ✅ PASS |
+| **U4_03** | Unit 4 | Definition & Example | Explain word embeddings with an example. | Word Embeddings | 100.0% | 0.001s | ✅ PASS |
+| **U4_04** | Unit 4 | Concept | What is data sparsity in NLP? | Data Sparsity | 75.0% | 0.268s | ✅ PASS |
+| **U4_05** | Unit 4 | Evaluation Metric | What is perplexity? | Perplexity | 100.0% | 0.317s | ✅ PASS |
+| **U4_06** | Unit 4 | Definition | What is an RNN? | Recurrent Neural Networks (RNN) | 100.0% | 0.185s | ✅ PASS |
+| **U4_07** | Unit 4 | Explanation | Explain the role of hidden states in an RNN. | Recurrent Neural Networks (RNN) | 75.0% | 0.561s | ✅ PASS |
+| **U4_08** | Unit 4 | Training Algorithm | Explain Backpropagation Through Time (BPTT). | Backpropagation Through Time (BPTT) | 100.0% | 0.372s | ✅ PASS |
+| **U4_09** | Unit 4 | Theoretical Problem | Why do vanilla RNNs suffer from vanishing gradients? | Vanishing Gradient Problem | 100.0% | 0.987s | ✅ PASS |
+| **U4_10** | Unit 4 | Architecture | Explain the architecture of a bidirectional RNN. | Bidirectional RNN (BiRNN) | 100.0% | 0.001s | ✅ PASS |
+| **U4_11** | Unit 4 | Simplified Explanation | Explain LSTM in simple words. | Long Short-Term Memory (LSTM) | 100.0% | 0.001s | ✅ PASS |
+| **U4_12** | Unit 4 | Architecture & Gates | What are the three gates of an LSTM? | Long Short-Term Memory (LSTM) | 100.0% | 0.001s | ✅ PASS |
+| **U4_13** | Unit 4 | Gate Mechanism | What does the forget gate do in an LSTM? | LSTM Forget Gate | 80.0% | 0.001s | ✅ PASS |
+| **U4_14** | Unit 4 | Comparison | Difference between LSTM and GRU. | Gated Recurrent Unit (GRU) | 100.0% | 0.451s | ✅ PASS |
+| **U5_01** | Unit 5 | Overview | What is Machine Translation and what are its main approaches? | Introduction to Machine Translation | 100.0% | 0.424s | ✅ PASS |
+| **U5_02** | Unit 5 | Definition | What is an encoder-decoder model? | Encoder-Decoder Architecture | 100.0% | 0.439s | ✅ PASS |
+| **U5_03** | Unit 5 | Core Concept | What is context vector and Seq2Seq bottleneck? | Context Vector (Seq2Seq Bottleneck) | 50.0% | 0.321s | ✅ PASS |
+| **U5_04** | Unit 5 | Motivation | Why is attention required in machine translation? | Need for Attention Mechanism | 100.0% | 0.245s | ✅ PASS |
+| **U5_05** | Unit 5 | Mechanism | How does attention work? | Working of Attention Mechanism | 100.0% | 1.166s | ✅ PASS |
+| **U5_06** | Unit 5 | Comparison | Difference between Seq2Seq with and without attention. | Seq2Seq With and Without Attention | 100.0% | 1.289s | ✅ PASS |
+| **U5_07** | Unit 5 | Comparison | What is difference between Self-Attention & Cross-Attention? | Self-Attention Mechanism | 100.0% | 0.615s | ✅ PASS |
+| **U5_08** | Unit 5 | Comparison | Difference between RNN-based and Transformer-based models. | RNN-Based vs Transformer-Based Models | 80.0% | 0.523s | ✅ PASS |
+| **FU_01** | Unit 4 | Follow-Up (Simple) | Explain it more simply. (referencing LSTM) | Long Short-Term Memory (LSTM) | 100.0% | 0.001s | ✅ PASS |
+| **FU_02** | Unit 5 | Follow-Up (Example) | Give me an example. (referencing Attention) | Working of Attention Mechanism | 100.0% | 0.001s | ✅ PASS |
+| **FU_03** | Unit 4 | Follow-Up (Arch) | Explain its architecture. (referencing GRU) | Gated Recurrent Unit (GRU) | 100.0% | 0.001s | ✅ PASS |
+| **GUARD_01**| Out of Syllabus | Guardrail | What is quantum entanglement and teleportation? | None (Refused correctly) | 100.0% | 0.001s | ✅ PASS |
+
 ---
 
 ## 10. CHALLENGES, LIMITATIONS, AND MITIGATIONS

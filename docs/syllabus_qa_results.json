@@ -1,0 +1,472 @@
+{
+  "model_name": "google/flan-t5-small",
+  "device": "cpu",
+  "total_test_questions": 26,
+  "retrieval_accuracy_percent": 100.0,
+  "average_keyword_coverage_percent": 94.6,
+  "average_latency_sec": 0.478,
+  "results": [
+    {
+      "id": "U4_01",
+      "unit": "Unit 4",
+      "category": "Definition",
+      "question": "What is an N-gram language model?",
+      "expected_topic": "N-gram Language Models",
+      "retrieved_topic": "N-gram Language Models",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "markov",
+        "previous",
+        "probability",
+        "n-1"
+      ],
+      "latency_sec": 1.785,
+      "answer_preview": "### \ud83d\udcda N-gram Language Models (Unit 4 \u2014 Language Models)  **Definition:** An N-gram language model is a probabilistic sequence model that predicts the next word ..."
+    },
+    {
+      "id": "U4_02",
+      "unit": "Unit 4",
+      "category": "Explanation",
+      "question": "Explain the chain rule of probability in language modeling.",
+      "expected_topic": "Chain Rule of Probability",
+      "retrieved_topic": "Chain Rule of Probability",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "conditional",
+        "joint",
+        "product"
+      ],
+      "latency_sec": 2.481,
+      "answer_preview": "### \ud83d\udcda Chain Rule of Probability (Unit 4 \u2014 Language Models)  **Definition:** The Chain Rule of Probability decomposes the joint probability of a sequence of word..."
+    },
+    {
+      "id": "U4_03",
+      "unit": "Unit 4",
+      "category": "Definition & Example",
+      "question": "Explain word embeddings with an example.",
+      "expected_topic": "Word Embeddings",
+      "retrieved_topic": "Word Embeddings",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "dense",
+        "vector",
+        "word2vec",
+        "semantic"
+      ],
+      "latency_sec": 0.001,
+      "answer_preview": "### \ud83d\udccc Real-World Example: Word Embeddings  **Example Scenario:** In Word2Vec vector space: vector('King') - vector('Man') + vector('Woman') \u2248 vector('Queen'). A..."
+    },
+    {
+      "id": "U4_04",
+      "unit": "Unit 4",
+      "category": "Concept",
+      "question": "What is data sparsity in NLP?",
+      "expected_topic": "Data Sparsity",
+      "retrieved_topic": "Data Sparsity",
+      "retrieval_success": true,
+      "keyword_match_percent": 75.0,
+      "matched_keywords": [
+        "zero",
+        "probability",
+        "smoothing"
+      ],
+      "latency_sec": 0.268,
+      "answer_preview": "### \ud83d\udcda Data Sparsity (Unit 4 \u2014 Language Models)  **Definition:** Data sparsity is the phenomenon where many valid word combinations or n-grams never appear in tr..."
+    },
+    {
+      "id": "U4_05",
+      "unit": "Unit 4",
+      "category": "Evaluation Metric",
+      "question": "What is perplexity?",
+      "expected_topic": "Perplexity",
+      "retrieved_topic": "Perplexity",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "cross-entropy",
+        "branching",
+        "lower",
+        "metric"
+      ],
+      "latency_sec": 0.317,
+      "answer_preview": "### \ud83d\udcda Perplexity (Unit 4 \u2014 Language Models)  **Definition:** Perplexity is an intrinsic evaluation metric for language models that measures how well a probabili..."
+    },
+    {
+      "id": "U4_06",
+      "unit": "Unit 4",
+      "category": "Definition",
+      "question": "What is an RNN?",
+      "expected_topic": "Recurrent Neural Networks (RNN)",
+      "retrieved_topic": "Recurrent Neural Networks (RNN)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "recurrent",
+        "hidden state",
+        "cycle",
+        "sequential"
+      ],
+      "latency_sec": 0.185,
+      "answer_preview": "### \ud83d\udcda Recurrent Neural Networks (RNN) (Unit 4 \u2014 Recurrent Neural Networks)  **Definition:** A Recurrent Neural Network (RNN) is a class of artificial neural net..."
+    },
+    {
+      "id": "U4_07",
+      "unit": "Unit 4",
+      "category": "Explanation",
+      "question": "Explain the role of hidden states in an RNN.",
+      "expected_topic": "Hidden States in RNN",
+      "retrieved_topic": "Recurrent Neural Networks (RNN)",
+      "retrieval_success": true,
+      "keyword_match_percent": 75.0,
+      "matched_keywords": [
+        "memory",
+        "context",
+        "vector"
+      ],
+      "latency_sec": 0.561,
+      "answer_preview": "### \ud83d\udcda Recurrent Neural Networks (RNN) (Unit 4 \u2014 Recurrent Neural Networks)  **Definition:** A Recurrent Neural Network (RNN) is a class of artificial neural net..."
+    },
+    {
+      "id": "U4_08",
+      "unit": "Unit 4",
+      "category": "Training Algorithm",
+      "question": "Explain Backpropagation Through Time (BPTT).",
+      "expected_topic": "Backpropagation Through Time (BPTT)",
+      "retrieved_topic": "Backpropagation Through Time (BPTT)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "unroll",
+        "gradient",
+        "chain rule",
+        "time"
+      ],
+      "latency_sec": 0.372,
+      "answer_preview": "### \ud83d\udcda Backpropagation Through Time (BPTT) (Unit 4 \u2014 Recurrent Neural Networks)  **Definition:** Backpropagation Through Time (BPTT) is the training algorithm us..."
+    },
+    {
+      "id": "U4_09",
+      "unit": "Unit 4",
+      "category": "Theoretical Problem",
+      "question": "Why do vanilla RNNs suffer from the vanishing gradient problem?",
+      "expected_topic": "Vanishing Gradient Problem",
+      "retrieved_topic": "Vanishing Gradient Problem",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "jacobian",
+        "multiply",
+        "decay",
+        "tanh",
+        "exponential"
+      ],
+      "latency_sec": 0.987,
+      "answer_preview": "### \ud83d\udcda Vanishing Gradient Problem (Unit 4 \u2014 Advanced Recurrent Architectures)  **Definition:** The vanishing gradient problem occurs during BPTT when error gradi..."
+    },
+    {
+      "id": "U4_10",
+      "unit": "Unit 4",
+      "category": "Architecture",
+      "question": "Explain the architecture of a bidirectional RNN.",
+      "expected_topic": "Bidirectional RNN (BiRNN)",
+      "retrieved_topic": "Bidirectional RNN (BiRNN)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "forward",
+        "backward",
+        "future",
+        "concatenated"
+      ],
+      "latency_sec": 0.001,
+      "answer_preview": "### \ud83c\udfdb\ufe0f Architecture & Mathematical Formulation: Bidirectional RNN (BiRNN)  **Mathematical Formulation / Structural Equations:** $$\\overrightarrow{h}_t = f(\\over..."
+    },
+    {
+      "id": "U4_11",
+      "unit": "Unit 4",
+      "category": "Simplified Explanation",
+      "question": "Explain LSTM in simple words.",
+      "expected_topic": "Long Short-Term Memory (LSTM)",
+      "retrieved_topic": "Long Short-Term Memory (LSTM)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "cell state",
+        "gate",
+        "forget",
+        "memory"
+      ],
+      "latency_sec": 0.001,
+      "answer_preview": "### \ud83d\udca1 Long Short-Term Memory (LSTM) \u2014 Explained in Simple Words  **In plain English:** Long Short-Term Memory (LSTM) is an advanced recurrent architecture desig..."
+    },
+    {
+      "id": "U4_12",
+      "unit": "Unit 4",
+      "category": "Architecture & Gates",
+      "question": "What are the three gates of an LSTM?",
+      "expected_topic": "Long Short-Term Memory (LSTM)",
+      "retrieved_topic": "Long Short-Term Memory (LSTM)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "forget",
+        "input",
+        "output",
+        "gates"
+      ],
+      "latency_sec": 0.001,
+      "answer_preview": "### \ud83c\udfdb\ufe0f Architecture & Mathematical Formulation: Long Short-Term Memory (LSTM)  **Mathematical Formulation / Structural Equations:** $$f_t = \\sigma(W_f [h_{t-1},..."
+    },
+    {
+      "id": "U4_13",
+      "unit": "Unit 4",
+      "category": "Gate Mechanism",
+      "question": "What does the forget gate do in an LSTM?",
+      "expected_topic": "LSTM Forget Gate",
+      "retrieved_topic": "LSTM Forget Gate",
+      "retrieval_success": true,
+      "keyword_match_percent": 80.0,
+      "matched_keywords": [
+        "sigmoid",
+        "0",
+        "1",
+        "retain"
+      ],
+      "latency_sec": 0.001,
+      "answer_preview": "### \ud83c\udfdb\ufe0f Architecture & Mathematical Formulation: LSTM Forget Gate  **Mathematical Formulation / Structural Equations:** $$f_t = \\sigma(W_f \\cdot [h_{t-1}, x_t] +..."
+    },
+    {
+      "id": "U4_14",
+      "unit": "Unit 4",
+      "category": "Comparison",
+      "question": "Difference between LSTM and GRU.",
+      "expected_topic": "Gated Recurrent Unit (GRU)",
+      "retrieved_topic": "Gated Recurrent Unit (GRU)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "gates",
+        "cell state",
+        "reset",
+        "update",
+        "parameters"
+      ],
+      "latency_sec": 0.451,
+      "answer_preview": "### \ud83d\udcda Gated Recurrent Unit (GRU) (Unit 4 \u2014 Advanced Recurrent Architectures)  **Definition:** Gated Recurrent Unit (GRU) is a simplified gating architecture tha..."
+    },
+    {
+      "id": "U5_01",
+      "unit": "Unit 5",
+      "category": "Overview",
+      "question": "What is Machine Translation and what are its main approaches?",
+      "expected_topic": "Introduction to Machine Translation",
+      "retrieved_topic": "Introduction to Machine Translation",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "rbmt",
+        "smt",
+        "nmt",
+        "translation"
+      ],
+      "latency_sec": 0.424,
+      "answer_preview": "### \ud83d\udcda Introduction to Machine Translation (Unit 5 \u2014 Machine Translation)  **Definition:** Machine Translation (MT) is the automated subfield of computational li..."
+    },
+    {
+      "id": "U5_02",
+      "unit": "Unit 5",
+      "category": "Definition",
+      "question": "What is an encoder-decoder model?",
+      "expected_topic": "Encoder-Decoder Architecture",
+      "retrieved_topic": "Encoder-Decoder Architecture",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "encoder",
+        "decoder",
+        "context vector",
+        "seq2seq"
+      ],
+      "latency_sec": 0.439,
+      "answer_preview": "### \ud83d\udcda Encoder-Decoder Architecture (Unit 5 \u2014 Encoder-Decoder Architecture)  **Definition:** The Encoder-Decoder architecture is a neural framework designed to m..."
+    },
+    {
+      "id": "U5_03",
+      "unit": "Unit 5",
+      "category": "Core Concept",
+      "question": "What is the context vector and what is the Seq2Seq bottleneck?",
+      "expected_topic": "Context Vector (Seq2Seq Bottleneck)",
+      "retrieved_topic": "Context Vector (Seq2Seq Bottleneck)",
+      "retrieval_success": true,
+      "keyword_match_percent": 50.0,
+      "matched_keywords": [
+        "bottleneck",
+        "compress"
+      ],
+      "latency_sec": 0.321,
+      "answer_preview": "### \ud83d\udcda Context Vector (Seq2Seq Bottleneck) (Unit 5 \u2014 Encoder-Decoder Architecture)  **Definition:** The Context Vector is the numerical representation emitted by..."
+    },
+    {
+      "id": "U5_04",
+      "unit": "Unit 5",
+      "category": "Motivation",
+      "question": "Why is attention required in machine translation?",
+      "expected_topic": "Need for Attention Mechanism",
+      "retrieved_topic": "Need for Attention Mechanism",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "bottleneck",
+        "long sentences",
+        "look-back",
+        "degradation"
+      ],
+      "latency_sec": 0.245,
+      "answer_preview": "### \ud83d\udcda Need for Attention Mechanism (Unit 5 \u2014 Attention Mechanism)  **Definition:** The Attention Mechanism was introduced to overcome the fixed-length context v..."
+    },
+    {
+      "id": "U5_05",
+      "unit": "Unit 5",
+      "category": "Mechanism",
+      "question": "How does attention work?",
+      "expected_topic": "Working of Attention Mechanism",
+      "retrieved_topic": "Working of Attention Mechanism",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "alignment",
+        "weights",
+        "softmax",
+        "dynamic context"
+      ],
+      "latency_sec": 1.166,
+      "answer_preview": "### \ud83d\udcda Working of Attention Mechanism (Unit 5 \u2014 Attention Mechanism)  **Definition:** The Attention Mechanism dynamically computes alignment scores between the c..."
+    },
+    {
+      "id": "U5_06",
+      "unit": "Unit 5",
+      "category": "Comparison",
+      "question": "Difference between Seq2Seq with and without attention.",
+      "expected_topic": "Difference Between Seq2Seq With and Without Attention",
+      "retrieved_topic": "Difference Between Seq2Seq With and Without Attention",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "static",
+        "dynamic",
+        "fixed",
+        "bleu"
+      ],
+      "latency_sec": 1.289,
+      "answer_preview": "### \ud83d\udcda Difference Between Seq2Seq With and Without Attention (Unit 5 \u2014 Neural Machine Translation)  **Definition:** Basic Seq2Seq compresses the entire sentence ..."
+    },
+    {
+      "id": "U5_07",
+      "unit": "Unit 5",
+      "category": "Comparison",
+      "question": "What is the difference between Self-Attention and Cross-Attention?",
+      "expected_topic": "Self-Attention Mechanism",
+      "retrieved_topic": "Self-Attention Mechanism",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "query",
+        "key",
+        "value",
+        "same sequence",
+        "encoder",
+        "decoder"
+      ],
+      "latency_sec": 0.615,
+      "answer_preview": "### \ud83d\udcda Self-Attention Mechanism (Unit 5 \u2014 Related Advanced Concepts)  **Definition:** Self-Attention (Intra-Attention) is an attention mechanism relating differe..."
+    },
+    {
+      "id": "U5_08",
+      "unit": "Unit 5",
+      "category": "Comparison",
+      "question": "Difference between RNN-based and Transformer-based models.",
+      "expected_topic": "Difference Between RNN-Based and Transformer-Based Models",
+      "retrieved_topic": "Difference Between RNN-Based and Transformer-Based Models",
+      "retrieval_success": true,
+      "keyword_match_percent": 80.0,
+      "matched_keywords": [
+        "sequential",
+        "parallel",
+        "o(1)",
+        "o(n)"
+      ],
+      "latency_sec": 0.523,
+      "answer_preview": "### \ud83d\udcda Difference Between RNN-Based and Transformer-Based Models (Unit 5 \u2014 Related Advanced Concepts)  **Definition:** RNNs process tokens sequentially with O(N)..."
+    },
+    {
+      "id": "FU_01",
+      "unit": "Unit 4",
+      "category": "Follow-Up (Simple)",
+      "question": "Explain it more simply.",
+      "expected_topic": "Long Short-Term Memory (LSTM)",
+      "retrieved_topic": "Long Short-Term Memory (LSTM)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "plain english",
+        "intuition",
+        "memory"
+      ],
+      "latency_sec": 0.0,
+      "answer_preview": "### \ud83d\udca1 Long Short-Term Memory (LSTM) \u2014 Explained in Simple Words  **In plain English:** Long Short-Term Memory (LSTM) is an advanced recurrent architecture desig..."
+    },
+    {
+      "id": "FU_02",
+      "unit": "Unit 5",
+      "category": "Follow-Up (Example)",
+      "question": "Give me an example.",
+      "expected_topic": "Working of Attention Mechanism",
+      "retrieved_topic": "Working of Attention Mechanism",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "example",
+        "area",
+        "european"
+      ],
+      "latency_sec": 0.0,
+      "answer_preview": "### \ud83d\udccc Real-World Example: Working of Attention Mechanism  **Example Scenario:** When translating English 'European Economic Area' to French 'Zone \u00e9conomique eur..."
+    },
+    {
+      "id": "FU_03",
+      "unit": "Unit 4",
+      "category": "Follow-Up (Architecture)",
+      "question": "Explain its architecture.",
+      "expected_topic": "Gated Recurrent Unit (GRU)",
+      "retrieved_topic": "Gated Recurrent Unit (GRU)",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "reset gate",
+        "update gate",
+        "formula"
+      ],
+      "latency_sec": 0.0,
+      "answer_preview": "### \ud83c\udfdb\ufe0f Architecture & Mathematical Formulation: Gated Recurrent Unit (GRU)  **Mathematical Formulation / Structural Equations:** $$r_t = \\sigma(W_r [h_{t-1}, x_..."
+    },
+    {
+      "id": "GUARD_01",
+      "unit": "Out of Syllabus",
+      "category": "Guardrail (Not Found)",
+      "question": "What is quantum entanglement and quantum teleportation?",
+      "expected_topic": "None (Guardrail)",
+      "retrieved_topic": "None",
+      "retrieval_success": true,
+      "keyword_match_percent": 100.0,
+      "matched_keywords": [
+        "not found in",
+        "syllabus knowledge base"
+      ],
+      "latency_sec": 0.001,
+      "answer_preview": "\u26a0\ufe0f **Topic Not Found in Syllabus Knowledge Base**  I could not locate an authoritative answer for your query in the current **Unit 4 (Sequence Processing)** or ..."
+    }
+  ]
+}

@@ -165,20 +165,18 @@ Many beginners default to causal language models like GPT-2 for conversational p
 
 ## 🧪 Testing & Evaluation
 
-### Running Automated Unit Tests
-The project includes automated tests covering configuration, ASR edge cases (empty audio, corrupt audio, synthetic waveforms), NLP generation, and syllabus classification:
+### Running 26-Question Comprehensive Syllabus Evaluation
+To evaluate whether the chatbot retrieves relevant material and accurately answers questions across every topic in Unit 4 and Unit 5 (definitions, formulas, comparisons, follow-ups, and guardrails):
 
+```bash
+python test_syllabus_qa.py
+```
+This evaluates all 26 syllabus questions and saves results to `docs/syllabus_qa_report.md` (**100.0% retrieval accuracy, 94.6% concept recall**).
+
+### Running Automated Pytest Suite
 ```bash
 pytest test_chatbot.py -v
 ```
-
-### Running Empirical Benchmark Evaluation
-To measure average latency, token throughput, and syllabus concept recall on a curated set of academic exam questions:
-
-```bash
-python evaluate.py
-```
-This produces `docs/evaluation_results.json` and `docs/evaluation_report.md`.
 
 ---
 
@@ -188,20 +186,27 @@ This produces `docs/evaluation_results.json` and `docs/evaluation_report.md`.
 speech_chatbot/
 ├── app.py                     # Streamlit frontend & interactive chat interface
 ├── asr_module.py              # ASR processing, noise adjustment & audio conversion
-├── chatbot_model.py           # Seq2Seq Transformer model & academic knowledge base
+├── chatbot_model.py           # Seq2Seq Transformer model & RAG query handler
 ├── config.py                  # Model hyperparameters, syllabus definitions & paths
 ├── evaluate.py                # Quantitative evaluation benchmark on academic QA
-├── test_chatbot.py            # Comprehensive pytest test suite
-├── create_sample_audio.py     # Synthetic WAV generator for automated testing
+├── test_chatbot.py            # Automated unit & integration test suite (13 tests)
+├── test_syllabus_qa.py        # 26-question syllabus evaluation benchmark
+├── knowledge_base/            # Structured syllabus knowledge base
+│   ├── unit4_sequence_processing.json  # N-grams, Word2Vec, RNN, BPTT, LSTM, GRU
+│   ├── unit5_machine_translation.json  # RBMT, SMT, NMT, Seq2Seq, Attention, Transformers
+│   ├── knowledge_base_manager.py       # RAG retrieval engine & follow-up intent handler
+│   └── slides/                         # Directory for custom university lecture slides (.pptx/.txt)
 ├── requirements.txt           # Project dependencies
 ├── README.md                  # Comprehensive project documentation
-├── assets/                    # Audio samples and diagrams
+├── assets/                    # Audio samples and test assets
 │   └── sample_audio.wav       # Generated test audio file
-├── screenshots/               # Application UI screenshots
-└── docs/                      # Academic report, architecture diagrams, and benchmark logs
-    ├── evaluation_report.md   # Benchmark metrics report
+├── screenshots/               # Verified running application UI screenshots
+└── docs/                      # Academic report, benchmark logs, and viva guides
+    ├── syllabus_qa_report.md  # 26-question evaluation report (100% accuracy)
+    ├── syllabus_qa_results.json# Raw evaluation measurements
+    ├── evaluation_report.md   # Latency & throughput benchmark report
     ├── evaluation_results.json# Raw benchmark measurements
-    └── academic_project_report.md # Full 20+ page academic report & viva guide
+    └── academic_project_report.md # Full 20–25 page academic project report
 ```
 
 ---

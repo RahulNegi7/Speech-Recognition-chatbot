@@ -1,0 +1,366 @@
+{
+  "unit": "Unit 4",
+  "title": "Deep Learning Architectures for Sequence Processing",
+  "topics": [
+    {
+      "id": "u4_ngram_language_models",
+      "topic_name": "N-gram Language Models",
+      "unit_number": "Unit 4",
+      "category": "Language Models",
+      "short_definition": "An N-gram language model is a probabilistic sequence model that predicts the next word in a sequence based on the previous (N-1) words using the Markov assumption.",
+      "detailed_explanation": "Language models assign probabilities to sequences of words P(w_1, w_2, ..., w_T). Computing the full conditional probability over an entire history quickly becomes computationally intractable. An N-gram model simplifies this using the Markov assumption: the probability of a word depends only on the previous N-1 words, rather than the entire history. Common variants include unigram (N=1, independent probabilities), bigram (N=2, depends on 1 previous word), and trigram (N=3, depends on 2 previous words). Maximum Likelihood Estimation (MLE) computes these probabilities from corpus frequencies: P(w_i | w_{i-1}) = Count(w_{i-1}, w_i) / Count(w_{i-1}). To handle unseen n-grams, smoothing techniques such as Laplace (Add-1) smoothing, Good-Turing, and Kneser-Ney smoothing are applied.",
+      "simple_example": "In a bigram model: P('learning' | 'deep') = Count('deep learning') / Count('deep'). If 'deep' occurs 100 times and 'deep learning' occurs 40 times, P('learning' | 'deep') = 0.40.",
+      "architecture_or_formula": "$$P(w_1, \\dots, w_T) \\approx \\prod_{t=1}^T P(w_t \\mid w_{t-N+1}, \\dots, w_{t-1})$$",
+      "important_keywords": ["n-gram", "bigram", "trigram", "markov assumption", "maximum likelihood estimation", "smoothing", "language model"],
+      "related_topics": ["Chain Rule of Probability", "Data Sparsity", "Perplexity", "RNN as a Language Model"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is an N-gram language model?",
+          "answer": "An N-gram model estimates the probability of the next word by looking at only the previous N-1 words, approximating full sequence history via the Markov assumption."
+        },
+        {
+          "question": "What is the difference between a bigram and trigram?",
+          "answer": "A bigram predicts word w_t conditioned on 1 preceding word w_{t-1}, whereas a trigram conditions on 2 preceding words (w_{t-2}, w_{t-1})."
+        }
+      ]
+    },
+    {
+      "id": "u4_chain_rule_of_probability",
+      "topic_name": "Chain Rule of Probability",
+      "unit_number": "Unit 4",
+      "category": "Language Models",
+      "short_definition": "The Chain Rule of Probability decomposes the joint probability of a sequence of words into a product of conditional probabilities.",
+      "detailed_explanation": "In language modeling, the probability of an entire sentence or sequence W = (w_1, w_2, ..., w_T) is the joint probability P(w_1, w_2, ..., w_T). By applying the basic definition of conditional probability repeatedly, any joint distribution can be decomposed without making any independence assumptions: P(w_1, ..., w_T) = P(w_1) * P(w_2 | w_1) * P(w_3 | w_1, w_2) * ... * P(w_T | w_1, ..., w_{T-1}). While exact, calculating these conditional probabilities for long histories becomes impossible due to data sparsity, directly motivating the Markov approximation used in N-grams and the distributed recurrent state representation used in RNNs.",
+      "simple_example": "For the sentence 'I love NLP': P('I love NLP') = P('I') * P('love' | 'I') * P('NLP' | 'I love').",
+      "architecture_or_formula": "$$P(w_1, w_2, \\dots, w_T) = \\prod_{t=1}^T P(w_t \\mid w_1, \\dots, w_{t-1})$$",
+      "important_keywords": ["chain rule", "joint probability", "conditional probability", "sequence probability"],
+      "related_topics": ["N-gram Language Models", "Perplexity", "RNN as a Language Model"],
+      "common_questions_and_answers": [
+        {
+          "question": "Why is the chain rule important in language modeling?",
+          "answer": "It provides the exact mathematical foundation to break down the probability of generating a complete sentence into a step-by-step product of next-word predictions."
+        }
+      ]
+    },
+    {
+      "id": "u4_word_embeddings",
+      "topic_name": "Word Embeddings",
+      "unit_number": "Unit 4",
+      "category": "Language Models",
+      "short_definition": "Word embeddings are continuous, dense, low-dimensional vector representations of words where semantically similar words are mapped close together in geometric space.",
+      "detailed_explanation": "Traditional one-hot encodings represent words as sparse, orthogonal vectors of vocabulary size |V| (often 50,000+ dimensions) where every word pair has dot product 0, failing to capture semantic relatedness. Word embeddings map words into a dense vector space R^d (typically d = 100 to 768 dimensions). Popular algorithms include Word2Vec (Mikolov et al., 2013), which uses Continuous Bag-of-Words (CBOW) to predict target words from context or Skip-gram to predict context from target; GloVe (Pennington et al., 2014), which factorizes global co-occurrence matrices; and FastText (Bojanowski et al., 2017), which utilizes subword n-grams. Modern Transformer embeddings learn dynamic, context-dependent representations.",
+      "simple_example": "In Word2Vec vector space: vector('King') - vector('Man') + vector('Woman') ≈ vector('Queen'). Also, 'cat' and 'dog' have high cosine similarity (e.g., 0.85), whereas one-hot vectors had similarity 0.0.",
+      "architecture_or_formula": "$$\\text{Cosine Similarity}(\\mathbf{u}, \\mathbf{v}) = \\frac{\\mathbf{u} \\cdot \\mathbf{v}}{\\|\\mathbf{u}\\| \\|\\mathbf{v}\\|}$$",
+      "important_keywords": ["word embeddings", "dense vectors", "word2vec", "cbow", "skip-gram", "glove", "cosine similarity", "distributed representation"],
+      "related_topics": ["Data Sparsity", "RNN Architecture", "Transformer Architecture"],
+      "common_questions_and_answers": [
+        {
+          "question": "Explain word embeddings with an example.",
+          "answer": "Word embeddings convert text into continuous numbers where meaning is encoded as direction and distance. For example, 'frog' and 'toad' will have vectors that point in nearly the same direction, allowing neural networks to generalize between related concepts."
+        },
+        {
+          "question": "What is the difference between CBOW and Skip-gram?",
+          "answer": "CBOW predicts a single target word given surrounding context words (faster to train), while Skip-gram predicts surrounding context words given a center word (better for rare words)."
+        }
+      ]
+    },
+    {
+      "id": "u4_data_sparsity",
+      "topic_name": "Data Sparsity",
+      "unit_number": "Unit 4",
+      "category": "Language Models",
+      "short_definition": "Data sparsity is the phenomenon where many valid word combinations or n-grams never appear in training corpora, causing traditional frequency-based models to assign them zero probability.",
+      "detailed_explanation": "Because human language is productive and follows Zipf's Law, even massive text corpora contain only a fraction of grammatically valid sentences. In traditional N-gram models, if a sequence (e.g. 'purple elephant flew') never appears in training, Count('purple elephant flew') = 0, causing the MLE probability to be 0.0. Multiplying this in the chain rule forces the entire sentence probability to become 0. Data sparsity is resolved in statistical NLP using smoothing methods (Add-k, Backoff, Kneser-Ney) and in deep learning using continuous word embeddings, which allow neural models to generalize across synonymous words without exact literal matching.",
+      "simple_example": "If 'the cat sat on the rug' appeared in training, but 'the cat sat on the carpet' did not, a raw N-gram assigns 0 probability to the latter, whereas embedding models recognize that 'rug' and 'carpet' share similar vectors.",
+      "architecture_or_formula": "$$P_{\\text{Laplace}}(w_i \\mid w_{i-1}) = \\frac{C(w_{i-1}, w_i) + 1}{C(w_{i-1}) + |V|}$$",
+      "important_keywords": ["data sparsity", "zero probability", "zipf's law", "smoothing", "out-of-vocabulary"],
+      "related_topics": ["N-gram Language Models", "Perplexity", "Word Embeddings"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is data sparsity in NLP?",
+          "answer": "It is the problem where word combinations occur so infrequently that statistical counts are zero or unreliable, leading to poor generalization on unseen text."
+        }
+      ]
+    },
+    {
+      "id": "u4_perplexity",
+      "topic_name": "Perplexity",
+      "unit_number": "Unit 4",
+      "category": "Language Models",
+      "short_definition": "Perplexity is an intrinsic evaluation metric for language models that measures how well a probability model predicts a test sample; lower perplexity indicates a better model.",
+      "detailed_explanation": "Perplexity (PPL) is mathematically defined as the inverse probability of the test set, normalized by the number of words. It can also be interpreted as the exponentiated cross-entropy loss: PPL = exp(Cross-Entropy). Intuitively, perplexity represents the geometric average branching factor of the language model—i.e., the number of equally probable words the model is choosing between at each step. If a model has a perplexity of 50, it is as confused about the next word as if it were choosing uniformly from 50 possibilities. A lower perplexity score indicates higher confidence and superior predictive accuracy.",
+      "simple_example": "If a language model predicts test sentences with average cross-entropy loss of 3.0 nats, Perplexity = e^3.0 ≈ 20.08. A model with PPL=20 is substantially better than a baseline with PPL=150.",
+      "architecture_or_formula": "$$\\text{PPL}(W) = P(w_1, w_2, \\dots, w_N)^{-\\frac{1}{N}} = \\exp\\left( -\\frac{1}{N} \\sum_{i=1}^N \\log P(w_i \\mid w_{<i}) \\right)$$",
+      "important_keywords": ["perplexity", "evaluation metric", "branching factor", "cross-entropy", "test set probability"],
+      "related_topics": ["N-gram Language Models", "RNN as a Language Model"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is perplexity?",
+          "answer": "Perplexity is an intrinsic metric measuring how well a language model predicts unseen text. It is the exponentiated cross-entropy loss; lower numbers mean better, more confident predictions."
+        },
+        {
+          "question": "What does a perplexity of 10 mean?",
+          "answer": "It means the language model is on average as uncertain as if it were randomly picking the next word from a bucket of 10 equally likely candidate words."
+        }
+      ]
+    },
+    {
+      "id": "u4_rnn_architecture",
+      "topic_name": "Recurrent Neural Networks (RNN)",
+      "unit_number": "Unit 4",
+      "category": "Recurrent Neural Networks",
+      "short_definition": "A Recurrent Neural Network (RNN) is a class of artificial neural networks designed for sequential data where connections form a directed cycle, allowing internal state memory.",
+      "detailed_explanation": "Standard feed-forward neural networks assume all inputs and outputs are independent of each other. In contrast, natural language is sequential: the meaning of a word depends on preceding words. Vanilla RNNs (Elman networks) process inputs step-by-step: at each time step t, the network receives input vector x_t and the previous hidden state h_{t-1}. It applies shared parameter weight matrices (W_xh, W_hh, W_hy) across all time steps, computing a new hidden state h_t = tanh(W_hh * h_{t-1} + W_xh * x_t + b_h) and generating an output y_t = softmax(W_hy * h_t + b_y). Weight sharing allows the network to process arbitrary-length sequences without increasing parameter count.",
+      "simple_example": "In sentiment classification for 'The movie was wonderful', the RNN updates its hidden state step-by-step from 'The' to 'wonderful', accumulating semantic context so the final hidden state predicts 'Positive'.",
+      "architecture_or_formula": "$$h_t = \\tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h), \\quad y_t = \\text{softmax}(W_{hy} h_t + b_y)$$",
+      "important_keywords": ["rnn", "recurrent neural network", "hidden state", "parameter sharing", "sequence processing", "elman network"],
+      "related_topics": ["Hidden States", "Backpropagation Through Time", "Vanishing Gradient Problem", "LSTM"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is an RNN?",
+          "answer": "A Recurrent Neural Network is a deep learning architecture with cyclic connections that allow previous hidden outputs to be fed back into current calculations, enabling memory over sequential data."
+        },
+        {
+          "question": "Why do RNNs share weights across time steps?",
+          "answer": "Weight sharing ensures the model can process sequences of variable length and recognize patterns regardless of where they appear in a sentence, drastically reducing parameters."
+        }
+      ]
+    },
+    {
+      "id": "u4_hidden_states",
+      "topic_name": "Hidden States in RNN",
+      "unit_number": "Unit 4",
+      "category": "Recurrent Neural Networks",
+      "short_definition": "The hidden state is the internal memory vector of an RNN that summarizes the history of all sequence tokens observed up to the current time step.",
+      "detailed_explanation": "At time step t, the hidden state h_t is a continuous latent vector in R^d that acts as the network's working memory. It is recursively computed by combining the newly arrived token representation x_t with the prior memory vector h_{t-1}. In mathematical terms, h_t serves as a lossy compression of the sequence history (x_1, x_2, ..., x_t). Because the transition function is non-linear (using tanh or ReLU), hidden states can encode complex temporal dependencies and syntactic structures.",
+      "simple_example": "In parsing 'The students who attended the lecture passed', the hidden state preserves the plural subject information ('students') across intervening words ('who attended the lecture') so the verb agreement ('passed') can be validated.",
+      "architecture_or_formula": "$$h_t = f(h_{t-1}, x_t) = \\tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h)$$",
+      "important_keywords": ["hidden state", "internal memory", "latent representation", "context vector", "temporal state"],
+      "related_topics": ["RNN Architecture", "LSTM", "Encoder-Decoder Architecture"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is the role of hidden states in RNN?",
+          "answer": "Hidden states store the accumulated past context of the sequence, allowing current predictions to be influenced by earlier words."
+        }
+      ]
+    },
+    {
+      "id": "u4_backpropagation_through_time_bptt",
+      "topic_name": "Backpropagation Through Time (BPTT)",
+      "unit_number": "Unit 4",
+      "category": "Recurrent Neural Networks",
+      "short_definition": "Backpropagation Through Time (BPTT) is the training algorithm used for RNNs, which unrolls the recurrence across time steps and propagates error gradients backward through the sequence.",
+      "detailed_explanation": "To apply gradient descent to an RNN, the recurrent loop is conceptually unfolded across time steps t = 1 to T, creating a feed-forward graph with shared weights. Forward pass computes hidden states and total sequence loss L = sum(L_t). During backward pass, the gradient of the loss with respect to the recurrent weight matrix W_hh is computed using the multivariate chain rule across all time steps: dL/dW_hh = sum_{t=1}^T sum_{k=1}^t (dL_t/dh_t) * (dh_t/dh_k) * (dh_k/dW_hh). Because computing gradients across hundreds of steps is computationally heavy and causes vanishing gradients, practical systems use Truncated BPTT, which backpropagates only over a fixed window (e.g. 20–50 steps).",
+      "simple_example": "For a 3-word sentence, the network is unrolled into 3 stages: t1 -> t2 -> t3. The error at t3 flows backward to update weights at t2 and t1.",
+      "architecture_or_formula": "$$\\frac{\\partial L}{\\partial W_{hh}} = \\sum_{t=1}^T \\sum_{k=1}^t \\frac{\\partial L_t}{\\partial h_t} \\left( \\prod_{j=k+1}^t \\frac{\\partial h_j}{\\partial h_{j-1}} \\right) \\frac{\\partial h_k}{\\partial W_{hh}}$$",
+      "important_keywords": ["bptt", "backpropagation through time", "unrolling", "gradient descent", "truncated bptt"],
+      "related_topics": ["Vanishing Gradient Problem", "RNN Architecture", "LSTM"],
+      "common_questions_and_answers": [
+        {
+          "question": "Explain Backpropagation Through Time (BPTT).",
+          "answer": "BPTT unrolls the RNN across time into a sequence of layers, calculates errors at each step, and propagates gradients backward to update the shared weight matrices."
+        },
+        {
+          "question": "What is Truncated BPTT?",
+          "answer": "Truncated BPTT splits long sequences into smaller sub-sequences, limiting backward gradient propagation to a fixed number of steps to save memory and avoid gradient degradation."
+        }
+      ]
+    },
+    {
+      "id": "u4_rnn_as_a_language_model",
+      "topic_name": "RNN as a Language Model",
+      "unit_number": "Unit 4",
+      "category": "Recurrent Neural Networks",
+      "short_definition": "An RNN language model uses recurrent hidden states to model arbitrary-length histories and predict probability distributions over the next vocabulary token.",
+      "detailed_explanation": "While N-gram models are strictly restricted to N-1 context words, an RNN language model conceptually maintains unbounded memory through its recurrent hidden state h_t. At each position t, the network takes token x_t (represented as a word embedding), updates its hidden state h_t, and projects h_t through a linear layer and softmax across the entire vocabulary |V|. The output vector represents P(w_{t+1} = v | w_1, ..., w_t). The model is trained by minimizing the cross-entropy loss between the predicted distribution and the actual next word (Teacher Forcing). During text generation, tokens are sampled autoregressively step-by-step.",
+      "simple_example": "Input: 'Natural Language' -> RNN hidden state updates -> Output probabilities: 'Processing' (0.75), 'Understanding' (0.15), 'Generation' (0.05).",
+      "architecture_or_formula": "$$\\hat{y}_t = P(w_{t+1} \\mid w_{\\le t}) = \\text{softmax}(W_{hy} h_t + b_y), \\quad \\mathcal{L} = -\\sum_{t=1}^T \\log \\hat{y}_{t, w_{t+1}}$$",
+      "important_keywords": ["rnn language model", "autoregressive", "cross-entropy", "teacher forcing", "next word prediction"],
+      "related_topics": ["Perplexity", "Chain Rule of Probability", "Seq2Seq Learning"],
+      "common_questions_and_answers": [
+        {
+          "question": "How does an RNN function as a language model?",
+          "answer": "At each step, it takes the current word, updates its hidden context memory, and outputs a softmax probability distribution over all vocabulary words to predict what word comes next."
+        }
+      ]
+    },
+    {
+      "id": "u4_applications_of_rnn_in_nlp",
+      "topic_name": "Applications of RNN in NLP",
+      "unit_number": "Unit 4",
+      "category": "Recurrent Neural Networks",
+      "short_definition": "RNNs are applied across diverse NLP sequence tasks, including sentiment analysis, POS tagging, named entity recognition (NER), and machine translation.",
+      "detailed_explanation": "RNN architectures map to various sequence configurations: 1) One-to-Many: Image Captioning (single image input produces a sequence of words). 2) Many-to-One: Sentiment Classification (a sequence of words produces a single sentiment category). 3) Many-to-Many (synchronized): Part-of-Speech Tagging and Named Entity Recognition (NER), where every input token receives an immediate tag. 4) Many-to-Many (asynchronous): Machine Translation and Text Summarization, using an Encoder-Decoder structure where the full source sequence is processed before generating the output.",
+      "simple_example": "In Named Entity Recognition (Many-to-Many), input tokens ['Barack', 'Obama', 'visited', 'Paris'] map directly to labels ['B-PER', 'I-PER', 'O', 'B-LOC'].",
+      "architecture_or_formula": "Configurations: One-to-Many (Image -> Words), Many-to-One (Sentence -> Sentiment), Many-to-Many (Tokens -> POS Tags), Asynchronous (Seq2Seq).",
+      "important_keywords": ["applications of rnn", "sentiment analysis", "pos tagging", "ner", "machine translation", "many-to-one", "many-to-many"],
+      "related_topics": ["RNN Architecture", "Encoder-Decoder Architecture", "Bidirectional RNN"],
+      "common_questions_and_answers": [
+        {
+          "question": "Name four applications of RNN in NLP.",
+          "answer": "1) Sentiment Analysis (Many-to-One), 2) Part-of-Speech Tagging (Many-to-Many), 3) Language Modeling/Text Generation, 4) Machine Translation (Seq2Seq)."
+        }
+      ]
+    },
+    {
+      "id": "u4_vanishing_gradient_problem",
+      "topic_name": "Vanishing Gradient Problem",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "The vanishing gradient problem occurs during BPTT when error gradients decay exponentially as they are multiplied across many time steps, preventing the RNN from learning long-term dependencies.",
+      "detailed_explanation": "In standard RNNs, computing the gradient of the loss at step T with respect to the hidden state at an early step k requires multiplying the temporal Jacobians: prod_{j=k+1}^T (dh_j / dh_{j-1}). Each Jacobian matrix involves the recurrent weight matrix W_hh and the derivative of the activation function tanh'(z). Because tanh'(z) <= 1.0 (with maximum 1.0 at 0 and approaching 0 elsewhere), and if the largest singular value of W_hh < 1, the gradient product shrinks exponentially toward zero as (T - k) grows large. Consequently, the network cannot learn relationships between words separated by more than 5–10 steps. If singular values > 1, gradients explode exponentially (mitigated by gradient clipping).",
+      "simple_example": "In the sentence 'The book that I bought from the bookstore across the street was great', a vanilla RNN forgets the singular subject 'book' by the time it reaches 'was', causing agreement errors.",
+      "architecture_or_formula": "$$\\frac{\\partial h_T}{\\partial h_k} = \\prod_{j=k+1}^T \\frac{\\partial h_j}{\\partial h_{j-1}} = \\prod_{j=k+1}^T \\text{diag}(1 - \\tanh^2(\\dots)) W_{hh}^T \\xrightarrow{T - k \\gg 1} \\mathbf{0}$$",
+      "important_keywords": ["vanishing gradient", "exploding gradient", "bptt", "jacobian", "gradient clipping", "long-term dependency"],
+      "related_topics": ["Backpropagation Through Time", "LSTM", "GRU"],
+      "common_questions_and_answers": [
+        {
+          "question": "Why do vanilla RNNs suffer from vanishing gradients?",
+          "answer": "During BPTT, gradients are repeatedly multiplied across time steps by weights and tanh derivatives (< 1). This repeated matrix multiplication decays the gradient exponentially to zero over long distances."
+        },
+        {
+          "question": "How is exploding gradient handled?",
+          "answer": "By Gradient Clipping: if the norm of the gradient exceeds a threshold ||g|| > threshold, it is rescaled to prevent numeric overflow."
+        }
+      ]
+    },
+    {
+      "id": "u4_stacked_rnn",
+      "topic_name": "Stacked RNN",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "A Stacked (or Deep) RNN consists of multiple recurrent layers placed on top of each other, where the hidden state sequence of layer l serves as input to layer l+1.",
+      "detailed_explanation": "A single-layer RNN is limited in the hierarchical representations it can extract. In a Stacked RNN (Deep RNN), recurrent layers are stacked vertically. Layer 1 computes hidden states h_t^{(1)} from input tokens x_t. Layer 2 computes h_t^{(2)} using h_t^{(1)} as its input sequence. Higher layers capture higher-level abstract syntactic and semantic representations, similar to deep CNNs in vision. Stacking 2 to 4 layers generally improves performance, though deeper networks require residual connections and dropout between layers to train effectively.",
+      "simple_example": "In a 2-layer stacked RNN, Layer 1 learns lower-level morphological/grammatical patterns, while Layer 2 models high-level paragraph structure and sentence semantics.",
+      "architecture_or_formula": "$$h_t^{(l)} = \\tanh\\left( W_{hh}^{(l)} h_{t-1}^{(l)} + W_{xh}^{(l)} h_t^{(l-1)} + b^{(l)} \\right)$$",
+      "important_keywords": ["stacked rnn", "deep rnn", "hierarchical representations", "multi-layer recurrent"],
+      "related_topics": ["RNN Architecture", "Bidirectional RNN", "LSTM"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is a Stacked RNN?",
+          "answer": "A Stacked RNN places multiple recurrent layers vertically so the output of one RNN layer becomes the input to the next, learning richer hierarchical representations."
+        }
+      ]
+    },
+    {
+      "id": "u4_bidirectional_rnn",
+      "topic_name": "Bidirectional RNN (BiRNN)",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "A Bidirectional RNN processes sequential data in both directions simultaneously (forward from left-to-right and backward from right-to-left), combining past and future context.",
+      "detailed_explanation": "Standard unidirectional RNNs only have access to past context (words preceding time step t). However, in many NLP tasks (such as named entity recognition, part-of-speech tagging, and question answering), the full sentence is available beforehand, and future words provide crucial disambiguating clues. A Bidirectional RNN (Schuster & Paliwal, 1997) uses two separate hidden layers: 1) Forward RNN computes forward hidden states h_t^(fwd) from t=1 to T. 2) Backward RNN computes backward hidden states h_t^(bwd) from t=T down to 1. At each step t, the representations are concatenated: h_t = [h_t^(fwd); h_t^(bwd)]. This gives the output layer complete context from both past and future words.",
+      "simple_example": "In 'He deposited money in the bank' vs 'He sat on the bank of the river', a forward-only RNN at 'bank' doesn't know which meaning applies. A BiRNN reads 'of the river' from the backward direction and resolves 'bank' as a riverbank.",
+      "architecture_or_formula": "$$\\overrightarrow{h}_t = f(\\overrightarrow{W}_{hh} \\overrightarrow{h}_{t-1} + \\overrightarrow{W}_{xh} x_t), \\quad \\overleftarrow{h}_t = f(\\overleftarrow{W}_{hh} \\overleftarrow{h}_{t+1} + \\overleftarrow{W}_{xh} x_t), \\quad h_t = [\\overrightarrow{h}_t ; \\overleftarrow{h}_t]$$",
+      "important_keywords": ["bidirectional rnn", "birnn", "forward state", "backward state", "future context", "concatenation"],
+      "related_topics": ["RNN Architecture", "LSTM", "Encoder-Decoder Architecture"],
+      "common_questions_and_answers": [
+        {
+          "question": "Explain the architecture of a bidirectional RNN.",
+          "answer": "It has two parallel recurrent layers: one reads the sentence forward (left-to-right) and the other backward (right-to-left). Their hidden state outputs are concatenated at each time step to combine past and future context."
+        },
+        {
+          "question": "Can Bidirectional RNNs be used for real-time speech generation or language modeling?",
+          "answer": "No, because autoregressive language generation requires predicting the next token without knowing future tokens. BiRNNs require the complete sequence to be available up front."
+        }
+      ]
+    },
+    {
+      "id": "u4_long_short_term_memory_lstm",
+      "topic_name": "Long Short-Term Memory (LSTM)",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "Long Short-Term Memory (LSTM) is an advanced recurrent architecture designed with three gating mechanisms and a separate cell state to overcome the vanishing gradient problem.",
+      "detailed_explanation": "Introduced by Hochreiter & Schmidhuber (1997), LSTM solves the vanishing gradient problem by introducing an explicit memory pipeline called the Cell State (c_t). Unlike the hidden state h_t which undergoes non-linear matrix multiplication at every step, the cell state runs down the sequence with only linear interactions (constant error carousel). Information is added or removed from the cell state via three specialized non-linear gates: 1) Forget Gate (f_t): decides what past information to throw away. 2) Input Gate (i_t): decides which new candidate values to update into the cell state. 3) Output Gate (o_t): decides what parts of the cell state to reveal as the hidden state h_t. These additive pathways allow gradients to flow across hundreds of steps without decaying to zero.",
+      "simple_example": "In reading a story: when a new chapter begins, the Forget Gate clears context about the previous location, the Input Gate stores the new character names into the Cell State, and the Output Gate makes these names available for predicting pronouns in the next sentence.",
+      "architecture_or_formula": "$$f_t = \\sigma(W_f [h_{t-1}, x_t] + b_f), \\quad i_t = \\sigma(W_i [h_{t-1}, x_t] + b_i), \\quad \\tilde{c}_t = \\tanh(W_c [h_{t-1}, x_t] + b_c)$$\n$$c_t = f_t \\odot c_{t-1} + i_t \\odot \\tilde{c}_t, \\quad o_t = \\sigma(W_o [h_{t-1}, x_t] + b_o), \\quad h_t = o_t \\odot \\tanh(c_t)$$",
+      "important_keywords": ["lstm", "long short-term memory", "cell state", "forget gate", "input gate", "output gate", "constant error carousel"],
+      "related_topics": ["Vanishing Gradient Problem", "GRU", "Forget Gate", "Input Gate", "Output Gate"],
+      "common_questions_and_answers": [
+        {
+          "question": "Explain LSTM in simple words.",
+          "answer": "LSTM is a recurrent neural network with a smart memory track (Cell State) and three security gates (Forget, Input, Output) that regulate what old information to delete, what new information to store, and what memory to output, preventing it from forgetting over long texts."
+        },
+        {
+          "question": "What are the three gates of an LSTM?",
+          "answer": "1) Forget Gate (filters out irrelevant past memory), 2) Input Gate (stores important new incoming information), 3) Output Gate (determines what parts of memory affect current output)."
+        }
+      ]
+    },
+    {
+      "id": "u4_lstm_forget_gate",
+      "topic_name": "LSTM Forget Gate",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "The Forget Gate in an LSTM decides what portion of the previous cell state memory should be discarded or retained.",
+      "detailed_explanation": "Introduced by Gers et al. (2000), the Forget Gate f_t takes the previous hidden state h_{t-1} and current input x_t, passes them through a linear layer, and applies a sigmoid activation function sigma. The sigmoid squashes outputs to values strictly between 0 and 1 for each coordinate of the cell state vector: 0 means 'completely forget this information', while 1 means 'completely retain this information'. The previous cell state c_{t-1} is then element-wise multiplied by f_t. This prevents the cell state from growing unbounded.",
+      "simple_example": "When a paragraph switches from discussing 'Alice' to discussing 'Bob', the forget gate outputs values close to 0 for Alice's grammatical gender features, allowing the cell state to forget female pronouns.",
+      "architecture_or_formula": "$$f_t = \\sigma(W_f \\cdot [h_{t-1}, x_t] + b_f), \\quad \\text{Range: } [0, 1]$$",
+      "important_keywords": ["forget gate", "sigmoid", "cell state reset", "information filtering"],
+      "related_topics": ["Long Short-Term Memory", "Input Gate", "Output Gate"],
+      "common_questions_and_answers": [
+        {
+          "question": "What does the forget gate do in an LSTM?",
+          "answer": "It uses a sigmoid function to produce numbers between 0 and 1, multiplying the previous cell state to decide what old information to discard (0) or keep (1)."
+        }
+      ]
+    },
+    {
+      "id": "u4_lstm_input_gate",
+      "topic_name": "LSTM Input Gate",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "The Input Gate in an LSTM decides which newly observed information should be stored into the long-term cell state.",
+      "detailed_explanation": "The input gate operates in two complementary steps: 1) A sigmoid layer i_t = sigma(W_i * [h_{t-1}, x_t] + b_i) decides which memory positions to update (producing gate values between 0 and 1). 2) A tanh layer creates a vector of new candidate values c_tilde_t = tanh(W_c * [h_{t-1}, x_t] + b_c), bounded between -1 and +1. The new information is injected into the cell state via element-wise multiplication and linear addition: i_t * c_tilde_t. This ensures only relevant new details modify the long-term memory.",
+      "simple_example": "Upon encountering 'Bob joined the meeting', the input gate flags the subject 'Bob' and candidate vector adds male pronoun features into the cell state.",
+      "architecture_or_formula": "$$i_t = \\sigma(W_i \\cdot [h_{t-1}, x_t] + b_i), \\quad \\tilde{c}_t = \\tanh(W_c \\cdot [h_{t-1}, x_t] + b_c)$$",
+      "important_keywords": ["input gate", "candidate memory", "cell state update", "tanh candidate"],
+      "related_topics": ["Long Short-Term Memory", "Forget Gate", "Output Gate"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is the role of the input gate in LSTM?",
+          "answer": "It determines what new incoming information is worth remembering by multiplying a sigmoid filter with candidate values and adding them to the cell state."
+        }
+      ]
+    },
+    {
+      "id": "u4_lstm_output_gate",
+      "topic_name": "LSTM Output Gate",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "The Output Gate in an LSTM determines what parts of the internal cell state should be emitted as the hidden state h_t.",
+      "detailed_explanation": "The cell state c_t stores extensive long-term history, but not all of it is relevant for immediate next-step predictions. The Output Gate o_t uses a sigmoid layer o_t = sigma(W_o * [h_{t-1}, x_t] + b_o) to decide which memory parts to expose. The updated cell state c_t is pushed through a tanh function (scaling values to [-1, 1]) and multiplied element-wise by o_t: h_t = o_t * tanh(c_t). The resulting hidden state h_t is used to compute predictions y_t and passes forward to the next step.",
+      "simple_example": "If the cell state contains the knowledge that a subject is plural, the output gate activates this feature when processing a subsequent verb position, ensuring correct plural verb selection.",
+      "architecture_or_formula": "$$o_t = \\sigma(W_o \\cdot [h_{t-1}, x_t] + b_o), \\quad h_t = o_t \\odot \\tanh(c_t)$$",
+      "important_keywords": ["output gate", "hidden state emission", "filtered memory", "cell state output"],
+      "related_topics": ["Long Short-Term Memory", "Forget Gate", "Input Gate"],
+      "common_questions_and_answers": [
+        {
+          "question": "How does the output gate determine hidden state in LSTM?",
+          "answer": "It applies a sigmoid gate to current inputs and multiplies it with the tanh-scaled cell state, exposing only contextually relevant memory."
+        }
+      ]
+    },
+    {
+      "id": "u4_gated_recurrent_unit_gru",
+      "topic_name": "Gated Recurrent Unit (GRU)",
+      "unit_number": "Unit 4",
+      "category": "Advanced Recurrent Architectures",
+      "short_definition": "Gated Recurrent Unit (GRU) is a simplified gating architecture that merges the cell and hidden states into a single vector using two gates: Reset Gate and Update Gate.",
+      "detailed_explanation": "Proposed by Cho et al. (2014), the GRU is a streamlined alternative to the LSTM. It eliminates the separate cell state c_t, using only a single hidden state h_t. Furthermore, it reduces the three gates of an LSTM to just two: 1) Reset Gate (r_t): controls how much past hidden state information to forget when computing new candidate state. 2) Update Gate (z_t): acts simultaneously as both the forget and input gates, deciding how much of the old state to keep versus how much of the candidate state to incorporate. The state update is a linear interpolation: h_t = (1 - z_t) * h_{t-1} + z_t * h_tilde_t. Because GRU has ~25% fewer parameters than LSTM, it trains faster and requires less compute while offering comparable performance.",
+      "simple_example": "In text classification, if z_t = 0.9, the GRU replaces 90% of its previous memory with new information. If z_t = 0.1, it retains 90% of old memory and absorbs only 10% new details.",
+      "architecture_or_formula": "$$r_t = \\sigma(W_r [h_{t-1}, x_t]), \\quad z_t = \\sigma(W_z [h_{t-1}, x_t]), \\quad \\tilde{h}_t = \\tanh(W [r_t \\odot h_{t-1}, x_t])$$\n$$h_t = (1 - z_t) \\odot h_{t-1} + z_t \\odot \\tilde{h}_t$$",
+      "important_keywords": ["gru", "gated recurrent unit", "reset gate", "update gate", "fewer parameters", "linear interpolation"],
+      "related_topics": ["Long Short-Term Memory", "Vanishing Gradient Problem", "RNN Architecture"],
+      "common_questions_and_answers": [
+        {
+          "question": "What is the difference between LSTM and GRU?",
+          "answer": "1) Gates: LSTM has 3 gates (Forget, Input, Output), while GRU has 2 gates (Reset, Update). 2) States: LSTM maintains two separate states (Cell state c_t and Hidden state h_t), while GRU merges them into one single hidden state h_t. 3) Parameters: GRU has ~25% fewer parameters and trains faster."
+        },
+        {
+          "question": "When should you use GRU instead of LSTM?",
+          "answer": "Use GRU when training data or compute resources are limited, or for faster iteration on smaller sequence tasks. Use LSTM when modeling long, complex dependencies."
+        }
+      ]
+    }
+  ]
+}

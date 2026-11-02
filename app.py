@@ -144,6 +144,9 @@ if "last_transcription" not in st.session_state:
 if "audio_processed_key" not in st.session_state:
     st.session_state.audio_processed_key = None
 
+if "last_topic_id" not in st.session_state:
+    st.session_state.last_topic_id = None
+
 
 # ----------------------------------------------------------------------
 # Sidebar: Academic Syllabus & Model Controls
@@ -214,6 +217,27 @@ with st.sidebar:
         "4. Passes recognized text to NLP Seq2Seq model.\n\n"
         "*(No TTS / spoken audio is generated)*."
     )
+
+    st.divider()
+    st.subheader("📚 Syllabus Knowledge Base")
+    st.caption("Unit 4 (Sequence Models) & Unit 5 (Seq2Seq & Attention)")
+    st.success("✅ 25 Curriculum Topics Indexed")
+
+    # Custom University Slides Status & Upload
+    with st.expander("📂 University Lecture Slides (PPT)", expanded=False):
+        st.markdown(
+            "If your professor provides specific Unit 4 / Unit 5 lecture slides, "
+            "place `.pptx` or `.txt` files in `knowledge_base/slides/` or upload here:"
+        )
+        uploaded_slide = st.file_uploader("Upload slide notes (.pptx, .txt)", type=["pptx", "txt", "md"], key="slide_uploader")
+        if uploaded_slide is not None:
+            from knowledge_base.knowledge_base_manager import SLIDES_DIR
+            save_path = SLIDES_DIR / uploaded_slide.name
+            with open(save_path, "wb") as f:
+                f.write(uploaded_slide.read())
+            st.success(f"Uploaded and indexed {uploaded_slide.name}!")
+            st.info("Re-running to apply slide updates...")
+            st.rerun()
 
     # Actions
     st.divider()
@@ -367,16 +391,21 @@ if pending_query:
         if input_source:
             st.markdown(f"<span class='meta-chip'>📥 Source: {input_source}</span>", unsafe_allow_html=True)
 
-    # 2. Generate response via Seq2Seq Transformer model
+    # 2. Generate response via Seq2Seq Transformer model & Syllabus RAG
     with st.chat_message("assistant", avatar="🤖"):
-        with st.spinner(f"🧠 Processing through {selected_model} (Encoder-Decoder Seq2Seq)..."):
+        with st.spinner(f"🧠 Retrieving syllabus context & generating with {selected_model}..."):
             response_data = nlp_model.generate_response(
                 question=pending_query,
+                last_topic_id=st.session_state.get("last_topic_id"),
                 temperature=temperature,
                 top_p=top_p,
                 num_beams=num_beams,
                 max_new_tokens=max_tokens
             )
+
+        # Update last active topic for follow-up questions
+        if response_data.get("retrieved_topic_id"):
+            st.session_state.last_topic_id = response_data["retrieved_topic_id"]
 
         answer_text = response_data["answer"]
         st.markdown(answer_text)
@@ -385,8 +414,14 @@ if pending_query:
         meta_chips = (
             f"<span class='meta-chip'>⏱️ {response_data['latency_sec']}s</span>"
             f"<span class='meta-chip'>🧠 {response_data['model']}</span>"
-            f"<span class='meta-chip'>📚 {response_data.get('syllabus_unit', 'NLP')}</span>"
         )
+        if response_data.get("syllabus_unit"):
+            meta_chips += f"<span class='meta-chip'>📚 {response_data['syllabus_unit']}</span>"
+        if response_data.get("topic_name"):
+            meta_chips += f"<span class='meta-chip'>🎯 Topic: {response_data['topic_name']}</span>"
+        if response_data.get("confidence_score") and response_data["confidence_score"] > 0:
+            meta_chips += f"<span class='meta-chip'>🔍 Score: {response_data['confidence_score']}</span>"
+
         st.markdown(meta_chips, unsafe_allow_html=True)
 
     # 3. Save assistant response to session state
@@ -396,7 +431,8 @@ if pending_query:
         "meta": {
             "latency": response_data["latency_sec"],
             "model": response_data["model"],
-            "unit": response_data.get("syllabus_unit", "NLP")
+            "unit": response_data.get("syllabus_unit", "NLP"),
+            "topic": response_data.get("topic_name")
         }
     })
 
