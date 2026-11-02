@@ -165,16 +165,23 @@ class EducationalChatbotModel:
     def generate_response(
         self,
         question: str,
+        *args,
         last_topic_id: Optional[str] = None,
         temperature: float = DEFAULT_TEMPERATURE,
         top_p: float = DEFAULT_TOP_P,
         num_beams: int = DEFAULT_NUM_BEAMS,
-        max_new_tokens: int = MAX_NEW_TOKENS
+        max_new_tokens: int = MAX_NEW_TOKENS,
+        **kwargs
     ) -> Dict[str, Any]:
         """
         Retrieval-Augmented Generation (RAG) educational query handler.
         Retrieves relevant curriculum content and synthesizes a structured student response.
         """
+        # Support last_topic_id passed either as positional or keyword argument
+        if last_topic_id is None and "last_topic_id" in kwargs:
+            last_topic_id = kwargs["last_topic_id"]
+        if last_topic_id is None and len(args) > 0 and isinstance(args[0], str):
+            last_topic_id = args[0]
         if not question or not question.strip():
             return {
                 "answer": "Please ask a question related to your NLP or Deep Learning studies.",

@@ -110,7 +110,7 @@ st.markdown("""
 # Resource Caching
 # ----------------------------------------------------------------------
 @st.cache_resource(show_spinner="Initializing Seq2Seq Transformer Model (FLAN-T5)...")
-def load_cached_nlp_model(model_name: str) -> EducationalChatbotModel:
+def load_cached_nlp_model(model_name: str, cache_key: str = "v3_rag") -> EducationalChatbotModel:
     """Loads and caches the Hugging Face NLP model in memory."""
     return EducationalChatbotModel(model_name=model_name)
 
@@ -410,14 +410,23 @@ if pending_query:
     # 2. Generate response via Seq2Seq Transformer model & Syllabus RAG
     with st.chat_message("assistant", avatar="🤖"):
         with st.spinner(f"🧠 Retrieving syllabus context & generating with {selected_model}..."):
-            response_data = nlp_model.generate_response(
-                question=pending_query,
-                last_topic_id=st.session_state.get("last_topic_id"),
-                temperature=temperature,
-                top_p=top_p,
-                num_beams=num_beams,
-                max_new_tokens=max_tokens
-            )
+            try:
+                response_data = nlp_model.generate_response(
+                    question=pending_query,
+                    last_topic_id=st.session_state.get("last_topic_id"),
+                    temperature=temperature,
+                    top_p=top_p,
+                    num_beams=num_beams,
+                    max_new_tokens=max_tokens
+                )
+            except TypeError:
+                response_data = nlp_model.generate_response(
+                    question=pending_query,
+                    temperature=temperature,
+                    top_p=top_p,
+                    num_beams=num_beams,
+                    max_new_tokens=max_tokens
+                )
 
         # Update last active topic for follow-up questions
         if response_data.get("retrieved_topic_id"):
