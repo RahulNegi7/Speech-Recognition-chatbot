@@ -1,0 +1,12 @@
+# Educational Voice Chatbot Dependencies
+streamlit>=1.35.0
+torch>=2.2.0
+transformers>=4.40.0
+sentencepiece>=0.2.0
+SpeechRecognition>=3.10.4
+pydub>=0.25.1
+soundfile>=0.12.1
+numpy>=1.26.0
+pytest>=8.0.0
+requests>=2.31.0
+

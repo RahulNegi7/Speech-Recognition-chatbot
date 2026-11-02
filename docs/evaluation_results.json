@@ -1,0 +1,141 @@
+{
+  "model_name": "google/flan-t5-base",
+  "device": "cpu",
+  "total_test_cases": 8,
+  "average_latency_sec": 3.124,
+  "min_latency_sec": 1.924,
+  "max_latency_sec": 5.252,
+  "average_output_tokens": 33.2,
+  "average_concept_recall_percent": 88.1,
+  "details": [
+    {
+      "id": "EVAL_01",
+      "unit": "Unit 4",
+      "question": "What is the difference between LSTM and GRU?",
+      "latency_sec": 5.011,
+      "output_tokens": 24,
+      "matched_concepts": [
+        "gate",
+        "forget",
+        "hidden",
+        "cell state",
+        "parameter"
+      ],
+      "concept_recall_percent": 100.0,
+      "syllabus_unit_inferred": "Unit 4 (Sequence Processing & Recurrent Models)",
+      "answer_preview": "### Comparison: Long Short-Term Memory (LSTM) vs Gated Recurrent Unit (GRU)\n\n**Key Differences Between LSTM and GRU:**\n\n1. **Number of Gates:**\n   - **LSTM (Hochreiter & Schmidhube..."
+    },
+    {
+      "id": "EVAL_02",
+      "unit": "Unit 4",
+      "question": "Why do vanilla Recurrent Neural Networks suffer from the vanishing gradient problem?",
+      "latency_sec": 2.227,
+      "output_tokens": 18,
+      "matched_concepts": [
+        "gradient",
+        "time",
+        "backpropagation",
+        "decay",
+        "eigenvalue"
+      ],
+      "concept_recall_percent": 100.0,
+      "syllabus_unit_inferred": "Unit 4 (Recurrent Neural Networks)",
+      "answer_preview": "### Vanishing Gradient Problem in RNNs\n\n**The Vanishing Gradient Problem:**\n\n1. **Mathematical Cause:** During Backpropagation Through Time (BPTT), gradients are multiplied across ..."
+    },
+    {
+      "id": "EVAL_03",
+      "unit": "Unit 4",
+      "question": "Explain Word2Vec and how CBOW differs from Skip-gram.",
+      "latency_sec": 5.252,
+      "output_tokens": 69,
+      "matched_concepts": [
+        "vector",
+        "cbow",
+        "skip-gram",
+        "context",
+        "target"
+      ],
+      "concept_recall_percent": 100.0,
+      "syllabus_unit_inferred": "Unit 4 (Word Embeddings & Language Models)",
+      "answer_preview": "### Word Embeddings & Dense Vector Representations\n\n**Word Embeddings:**\n\n1. **Definition:** Continuous dense vector representations where semantically related words are placed clo..."
+    },
+    {
+      "id": "EVAL_04",
+      "unit": "Unit 5",
+      "question": "Explain the Encoder-Decoder architecture used in Seq2Seq models.",
+      "latency_sec": 2.159,
+      "output_tokens": 23,
+      "matched_concepts": [
+        "encoder",
+        "decoder",
+        "representation",
+        "sequence",
+        "bottleneck"
+      ],
+      "concept_recall_percent": 100.0,
+      "syllabus_unit_inferred": "Unit 5 (Encoder-Decoder Models & Seq2Seq)",
+      "answer_preview": "### Encoder-Decoder Architecture & Seq2Seq\n\n**Encoder-Decoder Architecture (Seq2Seq):**\n\n1. **Core Concept (Sutskever et al. 2014 / Cho et al. 2014):**\n   Designed to map an input ..."
+    },
+    {
+      "id": "EVAL_05",
+      "unit": "Unit 5",
+      "question": "What is the Attention Mechanism and how does it solve the Seq2Seq bottleneck?",
+      "latency_sec": 3.253,
+      "output_tokens": 44,
+      "matched_concepts": [
+        "query",
+        "key",
+        "value",
+        "softmax"
+      ],
+      "concept_recall_percent": 80.0,
+      "syllabus_unit_inferred": "Unit 5 (Attention Mechanism & Neural Machine Translation)",
+      "answer_preview": "### Attention Mechanism in NLP\n\n**The Attention Mechanism:**\n\n1. **Origin:** Proposed by Bahdanau et al. (2014) and Luong et al. (2015) for Neural Machine Translation to overcome t..."
+    },
+    {
+      "id": "EVAL_06",
+      "unit": "Unit 5",
+      "question": "What is the difference between Self-Attention and Cross-Attention in Transformers?",
+      "latency_sec": 2.788,
+      "output_tokens": 37,
+      "matched_concepts": [
+        "self-attention",
+        "cross-attention",
+        "encoder",
+        "decoder"
+      ],
+      "concept_recall_percent": 100.0,
+      "syllabus_unit_inferred": "Unit 5 (Attention Mechanism & Neural Machine Translation)",
+      "answer_preview": "### Attention Mechanism in NLP\n\n**The Attention Mechanism:**\n\n1. **Origin:** Proposed by Bahdanau et al. (2014) and Luong et al. (2015) for Neural Machine Translation to overcome t..."
+    },
+    {
+      "id": "EVAL_07",
+      "unit": "Unit 5",
+      "question": "Explain Neural Machine Translation and how Seq2Seq is applied.",
+      "latency_sec": 1.924,
+      "output_tokens": 22,
+      "matched_concepts": [
+        "translation",
+        "source",
+        "target"
+      ],
+      "concept_recall_percent": 75.0,
+      "syllabus_unit_inferred": "Unit 5 (Neural Machine Translation & Seq2Seq)",
+      "answer_preview": "### Neural Machine Translation (NMT)\n\n**Neural Machine Translation (NMT):**\n\n1. **Definition:** An end-to-end deep learning framework for translating text from a source language to..."
+    },
+    {
+      "id": "EVAL_08",
+      "unit": "General NLP",
+      "question": "What is tokenization and why is subword tokenization like SentencePiece important?",
+      "latency_sec": 2.376,
+      "output_tokens": 29,
+      "matched_concepts": [
+        "token",
+        "subword"
+      ],
+      "concept_recall_percent": 50.0,
+      "syllabus_unit_inferred": "General NLP / Deep Learning",
+      "answer_preview": "The SentencePiece is a subword tokenization mechanism that is used in Natural Language Processing and Deep Learning."
+    }
+  ]
+}
