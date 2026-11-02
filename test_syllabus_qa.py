@@ -337,3 +337,4 @@ def run_syllabus_evaluation(model_name: str = FALLBACK_MODEL_NAME) -> Dict[str, 
 
 if __name__ == "__main__":
     run_syllabus_evaluation()
+

@@ -4,7 +4,7 @@
   "total_test_questions": 26,
   "retrieval_accuracy_percent": 100.0,
   "average_keyword_coverage_percent": 94.6,
-  "average_latency_sec": 0.478,
+  "average_latency_sec": 0.125,
   "results": [
     {
       "id": "U4_01",
@@ -21,7 +21,7 @@
         "probability",
         "n-1"
       ],
-      "latency_sec": 1.785,
+      "latency_sec": 1.09,
       "answer_preview": "### \ud83d\udcda N-gram Language Models (Unit 4 \u2014 Language Models)  **Definition:** An N-gram language model is a probabilistic sequence model that predicts the next word ..."
     },
     {
@@ -38,7 +38,7 @@
         "joint",
         "product"
       ],
-      "latency_sec": 2.481,
+      "latency_sec": 0.087,
       "answer_preview": "### \ud83d\udcda Chain Rule of Probability (Unit 4 \u2014 Language Models)  **Definition:** The Chain Rule of Probability decomposes the joint probability of a sequence of word..."
     },
     {
@@ -73,7 +73,7 @@
         "probability",
         "smoothing"
       ],
-      "latency_sec": 0.268,
+      "latency_sec": 0.086,
       "answer_preview": "### \ud83d\udcda Data Sparsity (Unit 4 \u2014 Language Models)  **Definition:** Data sparsity is the phenomenon where many valid word combinations or n-grams never appear in tr..."
     },
     {
@@ -91,7 +91,7 @@
         "lower",
         "metric"
       ],
-      "latency_sec": 0.317,
+      "latency_sec": 0.089,
       "answer_preview": "### \ud83d\udcda Perplexity (Unit 4 \u2014 Language Models)  **Definition:** Perplexity is an intrinsic evaluation metric for language models that measures how well a probabili..."
     },
     {
@@ -109,7 +109,7 @@
         "cycle",
         "sequential"
       ],
-      "latency_sec": 0.185,
+      "latency_sec": 0.095,
       "answer_preview": "### \ud83d\udcda Recurrent Neural Networks (RNN) (Unit 4 \u2014 Recurrent Neural Networks)  **Definition:** A Recurrent Neural Network (RNN) is a class of artificial neural net..."
     },
     {
@@ -126,7 +126,7 @@
         "context",
         "vector"
       ],
-      "latency_sec": 0.561,
+      "latency_sec": 0.092,
       "answer_preview": "### \ud83d\udcda Recurrent Neural Networks (RNN) (Unit 4 \u2014 Recurrent Neural Networks)  **Definition:** A Recurrent Neural Network (RNN) is a class of artificial neural net..."
     },
     {
@@ -144,7 +144,7 @@
         "chain rule",
         "time"
       ],
-      "latency_sec": 0.372,
+      "latency_sec": 0.092,
       "answer_preview": "### \ud83d\udcda Backpropagation Through Time (BPTT) (Unit 4 \u2014 Recurrent Neural Networks)  **Definition:** Backpropagation Through Time (BPTT) is the training algorithm us..."
     },
     {
@@ -163,7 +163,7 @@
         "tanh",
         "exponential"
       ],
-      "latency_sec": 0.987,
+      "latency_sec": 0.091,
       "answer_preview": "### \ud83d\udcda Vanishing Gradient Problem (Unit 4 \u2014 Advanced Recurrent Architectures)  **Definition:** The vanishing gradient problem occurs during BPTT when error gradi..."
     },
     {
@@ -254,7 +254,7 @@
         "update",
         "parameters"
       ],
-      "latency_sec": 0.451,
+      "latency_sec": 0.094,
       "answer_preview": "### \ud83d\udcda Gated Recurrent Unit (GRU) (Unit 4 \u2014 Advanced Recurrent Architectures)  **Definition:** Gated Recurrent Unit (GRU) is a simplified gating architecture tha..."
     },
     {
@@ -272,7 +272,7 @@
         "nmt",
         "translation"
       ],
-      "latency_sec": 0.424,
+      "latency_sec": 0.21,
       "answer_preview": "### \ud83d\udcda Introduction to Machine Translation (Unit 5 \u2014 Machine Translation)  **Definition:** Machine Translation (MT) is the automated subfield of computational li..."
     },
     {
@@ -290,7 +290,7 @@
         "context vector",
         "seq2seq"
       ],
-      "latency_sec": 0.439,
+      "latency_sec": 0.213,
       "answer_preview": "### \ud83d\udcda Encoder-Decoder Architecture (Unit 5 \u2014 Encoder-Decoder Architecture)  **Definition:** The Encoder-Decoder architecture is a neural framework designed to m..."
     },
     {
@@ -306,7 +306,7 @@
         "bottleneck",
         "compress"
       ],
-      "latency_sec": 0.321,
+      "latency_sec": 0.088,
       "answer_preview": "### \ud83d\udcda Context Vector (Seq2Seq Bottleneck) (Unit 5 \u2014 Encoder-Decoder Architecture)  **Definition:** The Context Vector is the numerical representation emitted by..."
     },
     {
@@ -324,7 +324,7 @@
         "look-back",
         "degradation"
       ],
-      "latency_sec": 0.245,
+      "latency_sec": 0.234,
       "answer_preview": "### \ud83d\udcda Need for Attention Mechanism (Unit 5 \u2014 Attention Mechanism)  **Definition:** The Attention Mechanism was introduced to overcome the fixed-length context v..."
     },
     {
@@ -342,7 +342,7 @@
         "softmax",
         "dynamic context"
       ],
-      "latency_sec": 1.166,
+      "latency_sec": 0.214,
       "answer_preview": "### \ud83d\udcda Working of Attention Mechanism (Unit 5 \u2014 Attention Mechanism)  **Definition:** The Attention Mechanism dynamically computes alignment scores between the c..."
     },
     {
@@ -360,7 +360,7 @@
         "fixed",
         "bleu"
       ],
-      "latency_sec": 1.289,
+      "latency_sec": 0.111,
       "answer_preview": "### \ud83d\udcda Difference Between Seq2Seq With and Without Attention (Unit 5 \u2014 Neural Machine Translation)  **Definition:** Basic Seq2Seq compresses the entire sentence ..."
     },
     {
@@ -380,7 +380,7 @@
         "encoder",
         "decoder"
       ],
-      "latency_sec": 0.615,
+      "latency_sec": 0.093,
       "answer_preview": "### \ud83d\udcda Self-Attention Mechanism (Unit 5 \u2014 Related Advanced Concepts)  **Definition:** Self-Attention (Intra-Attention) is an attention mechanism relating differe..."
     },
     {
@@ -398,7 +398,7 @@
         "o(1)",
         "o(n)"
       ],
-      "latency_sec": 0.523,
+      "latency_sec": 0.27,
       "answer_preview": "### \ud83d\udcda Difference Between RNN-Based and Transformer-Based Models (Unit 5 \u2014 Related Advanced Concepts)  **Definition:** RNNs process tokens sequentially with O(N)..."
     },
     {
