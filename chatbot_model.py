@@ -6,10 +6,15 @@ Unit 4 and Unit 5 curriculum Knowledge Base and follow-up query engine.
 
 import time
 import logging
+import warnings
 from typing import Dict, Any, List, Optional, Tuple
 
+# Suppress benign environment deprecation and runtime warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=UserWarning, module="transformers")
+
 import torch
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, AutoConfig
 
 from config import (
     DEFAULT_MODEL_NAME,
@@ -53,11 +58,15 @@ class EducationalChatbotModel:
     def load_model(self):
         """Loads the pretrained Seq2Seq model and tokenizer on CPU/GPU."""
         logger.info(f"Loading NLP Model '{self.model_name}' on device '{self.device}'...")
-        for local_only in [False, True]:
+        # Prioritize local cached files first for instant, offline, warning-free loading
+        for local_only in [True, False]:
             try:
                 self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, local_files_only=local_only)
+                config = AutoConfig.from_pretrained(self.model_name, local_files_only=local_only)
+                config.tie_word_embeddings = False
                 self.model = AutoModelForSeq2SeqLM.from_pretrained(
                     self.model_name,
+                    config=config,
                     dtype=torch.float32,
                     low_cpu_mem_usage=True,
                     local_files_only=local_only
@@ -68,16 +77,20 @@ class EducationalChatbotModel:
                 logger.info(f"Model and Tokenizer successfully loaded (local_only={local_only}).")
                 return
             except Exception as e:
-                if local_only:
+                if not local_only:
                     logger.warning(f"Could not load {self.model_name}: {e}. Trying fallback model...")
 
         # If primary failed, try fallback model (flan-t5-small)
-        for local_only in [False, True]:
+        for local_only in [True, False]:
             try:
                 self.model_name = FALLBACK_MODEL_NAME
                 self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, local_files_only=local_only)
+                config = AutoConfig.from_pretrained(self.model_name, local_files_only=local_only)
+                config.tie_word_embeddings = False
                 self.model = AutoModelForSeq2SeqLM.from_pretrained(
                     self.model_name,
+                    config=config,
+                    dtype=torch.float32,
                     local_files_only=local_only
                 )
                 self.model.to(self.device)
@@ -86,7 +99,7 @@ class EducationalChatbotModel:
                 logger.info(f"Fallback model {self.model_name} loaded successfully (local_only={local_only}).")
                 return
             except Exception as ex:
-                if local_only:
+                if not local_only:
                     logger.error(f"Failed to load fallback model: {ex}")
                     self.is_loaded = False
 

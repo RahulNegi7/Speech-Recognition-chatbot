@@ -9,7 +9,12 @@ import os
 import wave
 import tempfile
 import logging
+import warnings
 from typing import Tuple, Optional, Dict, Any
+
+# Silence benign third-party warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=RuntimeWarning, module="pydub")
 
 try:
     import speech_recognition as sr

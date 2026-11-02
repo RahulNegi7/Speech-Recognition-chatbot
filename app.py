@@ -8,7 +8,14 @@ import os
 import io
 import time
 import logging
+import warnings
 from datetime import datetime
+
+# Silence benign third-party warnings in terminal
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=RuntimeWarning, module="pydub")
+warnings.filterwarnings("ignore", category=UserWarning, module="transformers")
+
 import streamlit as st
 
 from config import (
@@ -244,6 +251,7 @@ with st.sidebar:
     if st.button("🗑️ Clear Conversation", use_container_width=True):
         st.session_state.messages = [st.session_state.messages[0]]
         st.session_state.last_transcription = None
+        st.session_state.last_topic_id = None
         st.rerun()
 
     # Export Chat for Assignment Submission
@@ -363,10 +371,18 @@ with input_tab1:
                     st.error(f"❌ ASR Error: {asr_result.error}")
 
 with input_tab2:
-    text_query = st.chat_input("Ask a question about RNN, LSTM, GRU, Seq2Seq, Attention, or Embeddings...")
-    if text_query:
-        pending_query = text_query
-        input_source = "Text Input"
+    with st.form("text_input_form", clear_on_submit=True):
+        typed_text = st.text_input("Type your academic question:", placeholder="e.g. What is an RNN? or Explain LSTM in simple words")
+        submitted = st.form_submit_button("Submit Question", use_container_width=True)
+        if submitted and typed_text.strip():
+            pending_query = typed_text.strip()
+            input_source = "Typed Input"
+
+# Bottom global chat bar (always accessible)
+bottom_chat_text = st.chat_input("Type your question here (or record voice above)...")
+if bottom_chat_text and bottom_chat_text.strip():
+    pending_query = bottom_chat_text.strip()
+    input_source = "Chat Input"
 
 # Check if a sample question was clicked
 if sample_prompt:
