@@ -167,10 +167,15 @@ with st.sidebar:
         temperature = st.slider("Temperature", 0.0, 1.0, DEFAULT_TEMPERATURE, 0.05,
                                 help="0 = deterministic greedy decoding, higher = creative sampling.")
     with col2:
+        top_p = st.slider("Top-P (Nucleus)", 0.5, 1.0, DEFAULT_TOP_P, 0.05,
+                          help="Nucleus sampling probability threshold.")
+
+    col3, col4 = st.columns(2)
+    with col3:
         num_beams = st.slider("Beam Search", 1, 4, DEFAULT_NUM_BEAMS, 1,
                               help="Number of search paths during Seq2Seq autoregressive generation.")
-
-    max_tokens = st.slider("Max New Tokens", 64, 384, MAX_NEW_TOKENS, 32)
+    with col4:
+        max_tokens = st.slider("Max New Tokens", 64, 384, MAX_NEW_TOKENS, 32)
 
     # Syllabus Alignment Section
     st.divider()
